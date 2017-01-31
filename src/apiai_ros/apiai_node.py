@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 """ROS node for the API.ai natural language understanding"""
 
-
 import rospy
-import json
 import apiai
 
 from std_msgs.msg import Int16, String
@@ -16,9 +14,6 @@ SESSION_ID = 'your_key'
 # Audio configuration
 CHANNELS = 1
 RATE = 16000
-
-# print resDict["result"]['resolvedQuery']
-# return resDict["result"]['resolvedQuery']
 
 class ApiaiNode():
     def __init__(self):
