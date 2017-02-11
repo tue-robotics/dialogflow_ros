@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="publish_wave" default="false" />
+
+    <node name="speech_recognition" pkg="apiai_ros" type="watson_speech_node.py" output="screen" required="true">
+        <rosparam command="load" file="$(env HOME)/MEGA/credentials/ibm_watson/credentials.yaml" />
+        <remap from="watson_stt" to="speech" />
+    </node>
+
+    <node pkg="apiai_ros" type="apiai_node.py" name="apiai" required="true">
+        <rosparam command="load" file="$(env HOME)/MEGA/credentials/api_ai/credentials.yaml" />
+    </node>
+</launch>
