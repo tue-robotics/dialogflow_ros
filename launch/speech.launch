@@ -2,6 +2,12 @@
 <launch>
     <arg name="publish_wave" default="false" />
 
+    <include file="$(find snowboy_ros)/launch/snowboy.launch" />
+
+    <node name="ping_player" pkg="apiai_ros" type="ping_player_node.py" output="screen" required="true" >
+        <remap from="ping_trigger" to="hotword_detection" />
+    </node>
+
     <node name="speech_recognition" pkg="apiai_ros" type="watson_speech_node.py" output="screen" required="true">
         <rosparam command="load" file="$(env HOME)/MEGA/credentials/ibm_watson/credentials.yaml" />
         <remap from="watson_stt" to="speech" />
