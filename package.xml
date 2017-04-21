@@ -16,5 +16,6 @@
   <run_depend>python-numpy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>audio_common_msgs</run_depend>
+  <run_depend>python-ws4py</run_depend>
 
 </package>
