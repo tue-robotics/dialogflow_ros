@@ -7,33 +7,30 @@ import rospy
 import apiai
 
 from std_msgs.msg import String
-from audio_common_msgs.msg import AudioData
 
 # Authentication
-CLIENT_ACCESS_TOKEN = 'fe9f5d6b687045d4a1531e389a25aa6e'
-SESSION_ID = 'your_key'
+SESSION_ID = ''
 
 class ApiaiNode(object):
     def __init__(self):
         rospy.init_node('apiai_node')
         rospy.Subscriber("speech", String, self.speech_callback, queue_size=10)
+        CLIENT_ACCESS_TOKEN = rospy.get_param("~client_access_token")
 
         self.ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
         self.result_pub = rospy.Publisher("command", String, queue_size=10)
 
     def speech_callback(self, msg):
-        # todo(rokus): configure VAD if possible
-        self.voice_activity_detector = apiai.VAD()
-        self.request = ai.text_request()
+        self.request = self.ai.text_request()
         self.request.query = msg.data
 
         rospy.logdebug("Waiting for response...")
-        response = self.request.get_response()
+        response = self.request.getresponse()
         rospy.logdebug("Got response, and publishing it.")
 
         result_msg = String()
-        result_msg.data = response.text
+        result_msg.data = response.read()
 
         self.result_pub.publish(result_msg)
 
