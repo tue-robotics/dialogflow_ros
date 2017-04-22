@@ -15,7 +15,11 @@ class ApiaiNode(object):
     def __init__(self):
         rospy.init_node('apiai_node')
         rospy.Subscriber("speech", String, self.speech_callback, queue_size=10)
-        CLIENT_ACCESS_TOKEN = rospy.get_param("~client_access_token")
+        try:
+            CLIENT_ACCESS_TOKEN = rospy.get_param("~client_access_token")
+        except Exception as e:
+            rospy.logfatal("Missing required ROS parameter client_access_token")
+            exit(1)
 
         self.ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
