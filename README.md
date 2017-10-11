@@ -20,4 +20,4 @@ The json string output from Dialogflow.
 ~client_access_token
 ```
 The client access token for your Dialogflow agent is a required parameter. It can be found under agent settings on
-[Dialogflow](dialogflow.com)
+[Dialogflow](https://dialogflow.com)
