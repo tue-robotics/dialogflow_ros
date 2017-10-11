@@ -19,12 +19,12 @@ class DialogflowNode(object):
         rospy.init_node('dialogflow_node')
         rospy.Subscriber("speech", String, self.speech_callback, queue_size=10)
         try:
-            CLIENT_ACCESS_TOKEN = rospy.get_param("~client_access_token")
-        except Exception as e:
+            self._client_access_token = rospy.get_param("~client_access_token")
+        except rospy.ROSException:
             rospy.logfatal("Missing required ROS parameter client_access_token")
             exit(1)
 
-        self.ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+        self.ai = apiai.ApiAI(self._client_access_token)
 
         self.result_pub = rospy.Publisher("command", String, queue_size=10)
         self.request = None
